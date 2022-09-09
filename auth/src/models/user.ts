@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { Password } from '../services/password';
 
 /*An interface that describes the propierties
 that are requiered to create a new User */
@@ -32,6 +33,17 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     }
+});
+
+/*if we used an arrow function instaed of 'funcion' we lost 'this'
+inside the body's function and it's takes the file context*/
+
+userSchema.pre('save', async function(done) {
+    if (this.isModified('password')) {
+        const hashed = await Password.toHash(this.get('password'));
+        this.set('password', hashed);
+    }
+    done();
 });
 
 userSchema.statics.build = (attrs: UserAttrs) => new User(attrs);
