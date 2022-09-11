@@ -22,7 +22,7 @@ metadata:
   name: client-srv 
 spec: 
   selector: 
-    app: auth 
+    app: client 
   ports: 
     - name: client 
       protocol: TCP 
