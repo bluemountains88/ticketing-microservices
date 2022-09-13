@@ -12,14 +12,10 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
 AppComponent.getInitialProps = async (appContext) => {
     const client = buildClient(appContext.ctx);
     
-    const { data } = await client.get('/api/users/currentuser').catch((err) => {
-        console.log(err);
-    })
+    const { data } = await client.get('/api/users/currentuser');
     let pageProps = {};
     if(appContext.Component.getInitialProps) { 
-        pageProps = await appContext.Component.getInitialProps(appContext.ctx).catch((err) => {
-            console.log(err);
-        });
+        pageProps = await appContext.Component.getInitialProps(appContext.ctx);
     }
 
     return {

@@ -4,7 +4,6 @@ import cookieSession from 'cookie-session';
 
 import 'express-async-errors';
 
-import { indexRouter } from './routes';
 import { errorHandler,NotFoundError } from '@bluemountains/common';
 
 const app = express();
@@ -18,7 +17,6 @@ app.use(
     })
 );
 
-app.use(indexRouter);
 app.all('*', async () => { throw new NotFoundError() });
 app.use(errorHandler);
 
