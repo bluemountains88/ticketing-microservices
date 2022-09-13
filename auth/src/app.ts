@@ -6,8 +6,8 @@ import cookieSession from 'cookie-session';
 import 'express-async-errors';
 
 import { indexRouter } from './routes';
-import { errorHandler } from './middlewares/error-handler';
-import { NotFoundError } from './errors/not-found-error';
+import { errorHandler } from '@bluemountains/common';
+import { NotFoundError } from '@bluemountains/common';
 
 const app = express();
 app.set('trust proxy', true); //by nginx
