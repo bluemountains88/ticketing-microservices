@@ -10,6 +10,8 @@ declare global
     var signin: () => string[];    
 }
 
+jest.mock('../nats-wrapper');
+
 let mongo: any;
 
 beforeAll( async () => {
@@ -22,6 +24,8 @@ beforeAll( async () => {
 });
 
 beforeEach(async () => {
+    jest.clearAllMocks();
+
     const collections = await mongoose.connection.db.collections();
 
     for(let collection of collections) {
@@ -36,21 +40,6 @@ afterAll(async () => {
 
     await mongoose.connection.close();
 });
-
-/*global.signin = async () => {
-    const email = 'test@test.com';
-    const password = 'password';
-
-    const response = await request(app)
-        .post('/api/users/signup')
-        .send({
-            email, password
-        })
-        .expect(201);
-    const cookie = response.get('Set-Cookie');
-    return cookie;
-}
-*/
 
 global.signin = () => {
     //Build a JWT payload. { id, email, iat }
