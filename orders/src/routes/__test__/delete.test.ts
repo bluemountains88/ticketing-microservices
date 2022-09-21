@@ -3,12 +3,14 @@ import { app } from '../../app';
 import { Ticket } from '../../models/ticket';
 import { Order, OrderStatus } from '../../models/order';
 import { natsWrapper } from '../../nats-wrapper';
+import { newId } from '../../test/helpers';
 
 it('marks an order as cancelled', async () => {
     const user = global.signin();
     
     // Create a ticket
     const ticket = Ticket.build({
+        id: newId(),
         title: 'Concert',
         price: 20
     });
@@ -38,6 +40,7 @@ it('emits a order cancelled event', async () => {
     
     // Create a ticket
     const ticket = Ticket.build({
+        id: newId(),
         title: 'Concert',
         price: 20
     });

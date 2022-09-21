@@ -1,12 +1,14 @@
 import request from 'supertest';
 import { app } from '../../app';
 import { Ticket } from '../../models/ticket';
+import { newId } from '../../test/helpers';
 
 it('fetches the order', async () => {
     const user = global.signin();
 
     //  Create a ticketId
     const ticket = Ticket.build({
+        id: newId(),
         title: "Concert",
         price: 20
     });
@@ -34,6 +36,7 @@ it('returns an error if one user tries to fetch another users order', async () =
 
     //  Create a ticketId
     const ticket = Ticket.build({
+        id: newId(),
         title: "Concert",
         price: 20
     });
