@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import {
+    BadRequestError,
     NotAuthorizedError, 
     NotFoundError,
     requireAuth, 
@@ -25,12 +26,16 @@ router.put('/api/tickets/:id', requireAuth, [
     const { title, price } = req.body;
     const ticket = await Ticket.findById(req.params.id);
     
-    if(!ticket) {
+    if (!ticket) {
         throw new NotFoundError();
     };
 
-    if(ticket.userId !== req.currentUser!.id) {
+    if (ticket.userId !== req.currentUser!.id) {
         throw new NotAuthorizedError();
+    };
+
+    if (ticket.orderId) {
+        throw new BadRequestError('Cannot edit a reserved ticket');
     };
 
     ticket.set({
