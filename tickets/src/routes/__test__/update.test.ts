@@ -131,28 +131,27 @@ it('publishes an event', async () => {
 });
 
 it('rejects updates if the ticket is reserved', async () => {
-    const cookie = global.signin();
+  const cookie = global.signin();
 
-    const response = await request(app)
-        .post('/api/tickets')
-        .set('Cookie', cookie)
-        .send({
-            title: 'title1',
-            price: 20
-        })
-        .expect(201);
-    
-    const ticket = await Ticket.findById(response.body.id);
-    ticket!.set({ orderId: newId() });
-    await ticket!.save();
+  const response = await request(app)
+    .post("/api/tickets")
+    .set("Cookie", cookie)
+    .send({
+      title: "title1",
+      price: 20,
+    })
+    .expect(201);
 
-    await request(app)
-        .put(`/api/tickets/${response.body.id}`)
-        .set('Cookie', cookie)
-        .send({
-            title: 'new title 2',
-            price: 40
-        })
-        .expect(400);
+  const ticket = await Ticket.findById(response.body.id);
+  ticket!.set({ orderId: newId() });
+  await ticket!.save();
 
+  await request(app)
+    .put(`/api/tickets/${response.body.id}`)
+    .set("Cookie", cookie)
+    .send({
+      title: "new title 2",
+      price: 40,
+    })
+    .expect(400);
 })
