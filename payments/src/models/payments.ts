@@ -20,7 +20,7 @@ const paymentSchema = new mongoose.Schema({
         required: true
     },
     stripeId: {
-        type: true,
+        type: String,
         required: true
     }
 }, {
