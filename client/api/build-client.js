@@ -1,11 +1,10 @@
 import axios from "axios";
 
 const buildClient = ({ req }) => {
-  try{
     if (typeof window === "undefined") {
       // We are on the server
        return axios.create({
-          baseURL: "http://www.argentickets.com.ar",
+          baseURL: "/",
           headers: req.headers,
         });
     } else {
@@ -14,7 +13,6 @@ const buildClient = ({ req }) => {
         baseUrl: "/",
       });
     }
-  } catch (err) { console.log(err); };
 };
 
 export default buildClient;
