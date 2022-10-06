@@ -14,7 +14,7 @@ const start = async () => {
     }
 
     if(!process.env.NATS_CLUSTER_ID) {
-        throw new Error('NATS_CLUSTER_ID must be define!');
+        throw new Error('NATS_CLUSTER_ID must be define!!');
     }
 
     if(!process.env.NATS_CLIENT_ID) {
